@@ -1,5 +1,5 @@
-const Migrations = artifacts.require("Migrations");
+const todoList = artifacts.require("todoList");
 
 module.exports = function(deployer) {
-  deployer.deploy(Migrations);
+  deployer.deploy(todoList);
 };
