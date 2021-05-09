@@ -19,3 +19,7 @@ main {
     color: grey;
     text-decoration: line-through;
   }
+
+  #header {
+    color: white;
+  }
