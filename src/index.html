@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Dapp University | Todo List</title>
+    <title>Todo List</title>
 
     <!-- Bootstrap -->
     <link href="vendor/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -18,7 +18,7 @@
 
     <!-- Style sheets -->
     <link rel="stylesheet" type="text/css" href="main.css" media="screen"/>
-  
+    <script src="vendor/web3/dist/web3.min.js"></script>
 </head>
   <body>
     <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
@@ -36,10 +36,10 @@
             <p class="text-center">Loading...</p>
           </div>
           <div id="content">
-            <form onSubmit="App.createTask(); return false;">
+            <!-- <form onSubmit="App.createTask(); return false;">
               <input id="newTask" type="text" class="form-control" placeholder="Add task..." required>
               <input type="submit" hidden="">
-            </form>
+            </form> -->
             <ul id="taskList" class="list-unstyled">
               <div class="taskTemplate" class="checkbox" style="display: none">
                 <label>
