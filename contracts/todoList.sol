@@ -13,6 +13,11 @@ contract todoList {
     // Blockchain storage
     mapping(uint => task) public tasks; // PK uint
 
+    event TaskCreated(
+        uint id,
+        string content,
+        bool completed
+    ); 
     constructor() public{
         createTask("My first task");
     }
@@ -22,6 +27,7 @@ contract todoList {
         numTasks++;
         // Creates task from current numTask and passed string
         tasks[numTasks] = task(numTasks,_content,false);
+        emit TaskCreated(numTasks, _content, false);
     }
 
 }
