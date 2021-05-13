@@ -18,6 +18,11 @@ contract todoList {
         string content,
         bool completed
     ); 
+
+    event TaskCompleted(
+        uint id,
+        bool completed
+    );
     constructor() public{
         createTask("My first task");
     }
@@ -30,4 +35,10 @@ contract todoList {
         emit TaskCreated(numTasks, _content, false);
     }
 
+    function toggleCompleted(uint _id) public{
+        task memory _task = tasks[_id];
+        _task.completed = !_task.completed; // Turns completion status into the opposite of what it was
+        tasks[_id] = _task;
+        emit TaskCompleted(_id, _task.completed);
+    }
 }
