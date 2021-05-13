@@ -65,12 +65,45 @@ App = {
 
     //  Shows account inside the navbar of html
     $('#account').html(App.account)
+    
+    // Renders tasks
+    await App.renderTask()
 
     App.setLoading(false) // Changes loading state
    },
 
+   renderTask: async () => {
+       // Load total num of task from the blockchain
+       const numTasks = await App.todoList.numTasks()
+       const $taskTemplate = $('.taskTemplate')
+       // Render each task with a new template
+       for (let index = 0; index <= numTasks; index++) {
+          const task = await App.todoList.tasks(index)
+          const taskId = task[0].toNumber
+          const taskContent = task[1]
+          const taskCompleted = task[2]
+
+        //   Task HTML
+          const $newTaskTemplate = $taskTemplate.clone()
+          $newTaskTemplate.find('.content').html(taskContent)
+          $newTaskTemplate.find('input')
+                          .prop('name', taskId)
+                          .prop('checked', taskCompleted)
+                          //.on('click', App.toggleCompleted)
+        // Adds task to correct list
+          if (taskCompleted) {
+              $('#completedTaskList').append($newTaskTemplate)
+          } else {
+              $('#taskList').append($newTaskTemplate)
+          }    
+          
+          // Show the task
+          $newTaskTemplate.show()
+       }
+   },
+
    // Used for loading content
-   setLoading: async (boolean) => {
+   setLoading: (boolean) => {
        App.loading = boolean
        const loader = $('#loader')
        const content = $('#content')
