@@ -1,9 +1,11 @@
 App = {
+    loading: false,
     contracts: {},
     load: async () => {
         await App.loadWeb3()
         await App.loadAccount()
         await App.loadContract()
+        await App.render()
     },
     
     // https://medium.com/metamask/https-medium-com-metamask-breaking-change-injecting-web3-7722797916a8
@@ -46,9 +48,39 @@ App = {
 
 // Creates a JS version of the smart contract
    loadContract: async () => {
-       const todoList = await $.getJSON('todoList.json');
-       App.contracts.todoList = TruffleContract(todoList);
-       App.contracts.todoList.setProvider(App.web3Provider);
+       const todoList = await $.getJSON('todoList.json')
+       App.contracts.todoList = TruffleContract(todoList)
+       App.contracts.todoList.setProvider(App.web3Provider)
+
+    //    Gives a deployed copy of the smart contract
+       App.todoList = await App.contracts.todoList.deployed()
+   },
+
+   render: async () => {
+    // Prevents double rendering 
+    if (App.loading) {
+        return
+    }
+    App.setLoading(true) // Changes loading state
+
+    //  Shows account inside the navbar of html
+    $('#account').html(App.account)
+
+    App.setLoading(false) // Changes loading state
+   },
+
+   // Used for loading content
+   setLoading: async (boolean) => {
+       App.loading = boolean
+       const loader = $('#loader')
+       const content = $('#content')
+       if(boolean){
+           loader.show()
+           content.hide()
+       } else{
+           loader.hide()
+           content.show()
+       }
    }
    
 }
