@@ -90,7 +90,7 @@ App = {
           $newTaskTemplate.find('input')
                           .prop('name', taskId)
                           .prop('checked', taskCompleted)
-                          //.on('click', App.toggleCompleted)
+                          .on('click', App.toggleCompleted)
         // Adds task to correct list
           if (taskCompleted) {
               $('#completedTaskList').append($newTaskTemplate)
@@ -109,6 +109,13 @@ App = {
     await App.todoList.createTask(content)
     window.location.reload()
    },
+
+   toggleCompleted: async (event) => {
+    App.setLoading(true)
+    const taskId = event.target.name 
+    await App.todoList.toggleCompleted(taskId)
+    window.location.reload()
+   },
    
    // Used for loading content
    setLoading: (boolean) => {
@@ -122,7 +129,8 @@ App = {
            loader.hide()
            content.show()
        }
-   }
+   },
+
    
 }
 
